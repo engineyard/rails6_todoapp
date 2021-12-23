@@ -14,8 +14,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends nodejs yarn
 
 # Install rails
-RUN gem install rails
-
+RUN gem install rails -v '6.1.4'
 COPY ./Gemfile* /usr/src/app/ 
 WORKDIR /usr/src/app
 RUN bundle install
@@ -23,5 +22,7 @@ RUN bundle install
 COPY . /usr/src/app/
 
 RUN rails webpacker:install
+
 EXPOSE 3000
+
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
